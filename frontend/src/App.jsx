@@ -1,51 +1,33 @@
 import { useEffect, useState } from "react";
+import ProductoForm from "./components/ProductoForm";
+import ProductoList from "./components/ProductoList";
 import {
   obtenerProductos,
   crearProducto,
   eliminarProducto
-} from "./services/productoService.js";
+} from "./services/productoService";
 
 function App() {
   const [productos, setProductos] = useState([]);
-  const [form, setForm] = useState({
-    nombre: "",
-    categoria:"",
-    precio: "",
-    stock: ""
-  });
+  const [loading, setLoading] = useState(false);
 
   const cargarProductos = async () => {
+    setLoading(true);
     const data = await obtenerProductos();
     setProductos(data);
+    setLoading(false);
   };
 
   useEffect(() => {
     cargarProductos();
   }, []);
 
-  const manejarCambio = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const guardarProducto = async (e) => {
-    e.preventDefault();
-
-    await crearProducto(form);
-
-    setForm({
-      nombre: "",
-      categoria:"",
-      precio: "",
-      stock: ""
-    });
-
+  const manejarCrear = async (producto) => {
+    await crearProducto(producto);
     cargarProductos();
   };
 
-  const borrarProducto = async (id) => {
+  const manejarEliminar = async (id) => {
     await eliminarProducto(id);
     cargarProductos();
   };
@@ -53,49 +35,12 @@ function App() {
   return (
     <main>
       <h1>Inventario Fullstack</h1>
-
-      <form onSubmit={guardarProducto}>
-        <input
-          name="nombre"
-          placeholder="Nombre"
-          value={form.nombre}
-          onChange={manejarCambio}
-        />
-        <input
-          name="precio"
-          placeholder="Precio"
-          value={form.precio}
-          onChange={manejarCambio}
-        />
-          <input
-          name="categoria"
-          placeholder="Categoria"
-          value={form.categoria}
-          onChange={manejarCambio}
-        />
-
-        <input
-          name="stock"
-          placeholder="Stock"
-          value={form.stock}
-          onChange={manejarCambio}
-        />
-
-        <button type="submit">Guardar</button>
-      </form>
-
-      <hr />
-
-      <ul>
-        {productos.map((producto) => (
-          <li key={producto.id}>
-            {producto.nombre} - ${producto.precio} - Stock: {producto.stock} - Categoria: {producto.categoria}
-            <button onClick={() => borrarProducto(producto.id)}>
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+      <ProductoForm onCrear={manejarCrear} />
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <ProductoList productos={productos} onEliminar={manejarEliminar} />
+      )}
     </main>
   );
 }
