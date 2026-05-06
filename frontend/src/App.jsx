@@ -1,47 +1,24 @@
-import { useEffect, useState } from "react";
-import ProductoForm from "./components/ProductoForm";
-import ProductoList from "./components/ProductoList";
-import {
-  obtenerProductos,
-  crearProducto,
-  eliminarProducto
-} from "./services/productoService";
+import { useState, useEffect } from "react";
+import { auth } from "./firebaseCliente.js"; // Asegúrate de exportar auth desde tu config
+import { onAuthStateChanged } from "firebase/auth";
+import LoginFirebase from "./components/LoginFirebase.jsx";
 
 function App() {
-  const [productos, setProductos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [usuario, setUsuario] = useState(null);
 
-  const cargarProductos = async () => {
-    setLoading(true);
-    const data = await obtenerProductos();
-    setProductos(data);
-    setLoading(false);
-  };
-
+  // Escuchar si el usuario inicia o cierra sesión
   useEffect(() => {
-    cargarProductos();
+    const desuscribir = onAuthStateChanged(auth, (usuarioFirebase) => {
+      setUsuario(usuarioFirebase);
+    });
+    return () => desuscribir();
   }, []);
 
-  const manejarCrear = async (producto) => {
-    await crearProducto(producto);
-    cargarProductos();
-  };
-
-  const manejarEliminar = async (id) => {
-    await eliminarProducto(id);
-    cargarProductos();
-  };
-
   return (
-    <main>
-      <h1>Inventario Fullstack</h1>
-      <ProductoForm onCrear={manejarCrear} />
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
-        <ProductoList productos={productos} onEliminar={manejarEliminar} />
-      )}
-    </main>
+    <div className="App">
+      {/* Ahora pasamos el estado al componente */}
+      <LoginFirebase usuario={usuario} />
+    </div>
   );
 }
 

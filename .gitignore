@@ -11,6 +11,7 @@ frontend/build/
 .env
 backend/.env
 backend/serviceAccountKey.json
+frontend/.env
 
 # Logs
 *.log

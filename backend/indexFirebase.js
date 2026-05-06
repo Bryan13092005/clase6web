@@ -57,4 +57,4 @@ app.delete("/api/productos/:id", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Servidor en http://localhost:3000"));
+app.listen(3000, () => console.log("Servidor Firebase en http://localhost:3000"));

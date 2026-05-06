@@ -1,0 +1,144 @@
+/* Contenedor con sombra suave y bordes redondeados */
+.table-wrapper {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+/* Encabezado minimalista */
+.modern-table th {
+  padding: 18px 24px;
+  background: #fafbfc;
+  color: #8e94a9;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Filas con efecto hover */
+.table-row {
+  transition: all 0.2s ease;
+}
+
+.table-row:hover {
+  background-color: #f8faff;
+  transform: scale(1.002);
+}
+
+.modern-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f8f8f8;
+  vertical-align: middle;
+}
+
+/* Info del Producto con Avatar */
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.product-avatar {
+  width: 32px;
+  height: 32px;
+  background: #eef2ff;
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.product-name {
+  font-weight: 600;
+  color: #1a1c23;
+}
+
+/* Tags de Categoría */
+.category-tag {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Célula de Precio */
+.price-cell {
+  font-family: 'Monaco', monospace;
+  font-weight: 600;
+  color: #059669;
+}
+
+/* Indicador de Stock con Punto (Dot) */
+.stock-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.healthy { color: #065f46; background: #ecfdf5; }
+.healthy .dot { background: #10b981; box-shadow: 0 0 8px #10b981; }
+
+.critical { color: #991b1b; background: #fef2f2; }
+.critical .dot { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+
+/* Botón de Acción Elegante */
+.action-btn {
+  border: none;
+  background: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+
+.delete {
+  color: #94a3b8;
+}
+
+.delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.text-right { text-align: right; }
+
+/* Estado vacío */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #94a3b8;
+}
+
+.icon-box {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
