@@ -24,7 +24,7 @@ app.post("/api/productos", async (req, res) => {
     if (!nombre || !categoria || precio === undefined || stock === undefined) {
       return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
     }
-    const nuevo = { nombre, categoria, precio: Number(precio), stock: Number(stock), creadoEn: new Date().toISOString() };
+    const nuevo = { nombre:nombre.toUpperCase(), categoria: categoria.toUpperCase(), precio: Number(precio), stock: Number(stock), creadoEn: new Date().toISOString() };
     const docRef = await db.collection("productos").add(nuevo);
     res.status(201).json({ id: docRef.id, ...nuevo });
   } catch (error) {
